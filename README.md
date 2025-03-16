@@ -1,4 +1,3 @@
-
 # vite-vue3-browser-extension-v3
 
 [![build](https://github.com/mubaidr/vite-vue3-browser-extension-v3/actions/workflows/build.yml/badge.svg)](https://github.com/mubaidr/vite-vue3-browser-extension-v3/actions/workflows/build.yml)
@@ -48,7 +47,7 @@ A [Vite](https://vitejs.dev/) powered WebExtension ([Chrome](https://developer.c
   - Loading
   - Error handling
   - `useBrowserStorage` for extension settings and user options management
-  -
+  - 
 - pre-configured Pinia Store (optional persistent and non-persistent)
   - System wide
   - Easily extendable
@@ -218,64 +217,31 @@ If you like this project, you can support me by donating [mubaidr](https://www.p
 
 I am a full stack developer. I am open to work. If you are looking for a developer or have a project you want to start, please visit my profile and website here: [mubaidr](https://mubaidr.js.org).
 
-## Contributors
 
-<!-- readme: collaborators,contributors -start -->
-<table>
-	<tbody>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/mubaidr">
-                    <img src="https://avatars.githubusercontent.com/u/2222702?v=4" width="100;" alt="mubaidr"/>
-                    <br />
-                    <sub><b>Muhammad Ubaid Raza</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/Dreamlinerm">
-                    <img src="https://avatars.githubusercontent.com/u/90410608?v=4" width="100;" alt="Dreamlinerm"/>
-                    <br />
-                    <sub><b>Dreamliner</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/baramofme">
-                    <img src="https://avatars.githubusercontent.com/u/44565599?v=4" width="100;" alt="baramofme"/>
-                    <br />
-                    <sub><b>Jihoon Yi</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/poncianodiego">
-                    <img src="https://avatars.githubusercontent.com/u/20716004?v=4" width="100;" alt="poncianodiego"/>
-                    <br />
-                    <sub><b>Diego Ponciano</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/IgorFZ">
-                    <img src="https://avatars.githubusercontent.com/u/85708187?v=4" width="100;" alt="IgorFZ"/>
-                    <br />
-                    <sub><b>igorfz</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/hi2code">
-                    <img src="https://avatars.githubusercontent.com/u/51270649?v=4" width="100;" alt="hi2code"/>
-                    <br />
-                    <sub><b>hi2code</b></sub>
-                </a>
-            </td>
-		</tr>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/justorez">
-                    <img src="https://avatars.githubusercontent.com/u/17308328?v=4" width="100;" alt="justorez"/>
-                    <br />
-                    <sub><b>Null</b></sub>
-                </a>
-            </td>
-		</tr>
-	<tbody>
-</table>
-<!-- readme: collaborators,contributors -end -->
+# 魔改的地方
+
+- vite.config.js中添加了
+
+```
+
+transformIndexHtml(html, { path }) {
+        // 遍历 data 对象，替换所有占位符
+        for (const [key, value] of Object.entries(define)) {
+          const placeholder = `<%= ${key} %>`;
+          html = html.replace(new RegExp(placeholder, 'g'), JSON.parse(value as string));
+        }
+
+```
+
+```
+
+cors: {
+      origin: [
+		'chrome-extension://',  // Allow all extensions in dev
+```
+
+
+- html中的icon路径修改为： href="../../assets/favicon.ico"
+- 例子的favicon.ico
+- base.scss中去掉后面的各种样式，会和框架冲突。
+-

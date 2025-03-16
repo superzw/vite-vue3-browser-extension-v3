@@ -141,6 +141,12 @@ export default defineConfig({
       enforce: "post",
       apply: "build",
       transformIndexHtml(html, { path }) {
+        // 遍历 data 对象，替换所有占位符
+        for (const [key, value] of Object.entries(define)) {
+          const placeholder = `<%= ${key} %>`;
+          html = html.replace(new RegExp(placeholder, 'g'), JSON.parse(value as string));
+        }
+
         return html.replace(
           /"\/assets\//g,
           `"${relative(dirname(path), "/assets")}/`,
@@ -169,6 +175,7 @@ export default defineConfig({
         // See https://github.com/crxjs/chrome-extension-tools/issues/971 for more info
         // I don't believe that the linked issue mentions a potential solution
         /chrome-extension:\/\//,
+        'chrome-extension://',  // Allow all extensions in dev
       ],
     },
   },
