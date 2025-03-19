@@ -12,7 +12,7 @@ const [major, minor, patch, label = "0"] = version
 
 export default {
   author: {
-    email: "mubaidr@gmail.com",
+    email: "goodzhuwang@gmail.com",
   },
   name: env.mode === "staging" ? `[INTERNAL] ${name}` : displayName || name,
   description,
